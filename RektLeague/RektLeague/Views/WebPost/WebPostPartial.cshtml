@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "WebPostPartial";
+    var absUrl = Context.Request.Url;
+}
+<div class="webpost">
+    <div class="row">
+        <div class="webpost_header">
+            <div class="webpost_date bg-dark">
+                <span class="day" data-bind="text: day"></span>
+                <span class="month" data-bind="text: month"></span>
+                <span class="year" data-bind="text: year"></span>
+            </div>
+            <div class="bg-primary webpost_title" resize>
+                <h2>
+                    <a data-bind="attr:{'href': pageUrl}, text: title" class="webpost_title_text"></a>
+                </h2>
+            </div>
+            @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+            {
+                <a class="webpost_remove btn btn-danger text-center" asp-controller="App" asp-action="RemovePost" data-bind="attr:{'asp-route-id': id}">X</a>
+            }
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default" style="margin:0 10px 0 10px;">
+            <div data-bind="foreach: elements">
+                <div data-bind="if: elementType() == 0">
+                    <div class="well-lg webpost_text">
+                        <span data-bind="text: text"></span>
+                    </div>
+                </div>
+                <div data-bind="if: elementType() == 1">
+                    <div class="well-lg text-center">
+                        <img class="webpost_image" data-bind="attr:{src: imgBytes}" src="" />
+                    </div>
+                </div>
+                <div data-bind="if: elementType() == 2">
+                    <div class="well-lg text-center">
+                        <div class="embed-responsive embed-responsive-4by3">
+                            <iframe data-bind="attr:{src: text}" width="420" height="315" src="" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-dark">
+        <div style="display: table; width: 100%; padding:10px;">
+            <div style="display:table-cell; width:40%; text-align:left; vertical-align:middle">
+                <h3>
+                    <span>Categoria:</span>
+                    <a data-bind="attr:{'href': '/WebPost/Category/'+category()},text: categoryName()  " class="webpost_text"></a>
+                </h3>
+            </div>
+            <div style="display:table-cell; width:50%; text-align:center; vertical-align:middle">
+                <h3>
+                    <span>Postado por </span>
+                    <a class="webpost_text" data-bind="attr:{'href': '/WebPost/Author/'+author()}, text: author() "></a>
+                </h3>
+            </div>
+            <div style="display:table-cell; width:10%; text-align:left; vertical-align:middle">
+                <img class="img-circle" src="~/Content/Images/heresdoge.jpg" style="width:100%;">
+            </div>
+        </div>
+        <div class="webpost_separator"></div>
+    </div>
+    <div class="row bg-dark">
+        <div style="display: table; width: 100%; padding:10px;">
+            <div style="display:table-cell; text-align:center; vertical-align:middle">
+                <div class="fb-like" data-bind="attr:{'data-href': pageUrl}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+            </div>
+            <div style="display:table-cell; text-align:center; vertical-align:middle">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-bind="attr:{'data-url': pageUrl(), 'data-text': title()}" data-via="RektLeague">Tweet</a>
+            </div>
+            <div style="display:table-cell; text-align:center; vertical-align:middle">
+                <div class="g-plusone" data-bind="attr:{'data-href': pageUrl}"></div>
+                <script type="text/javascript">
+
+                </script>
+            </div>
+        </div>
+        <div class="webpost_separator"></div>
+    </div>
+</div>
+@Scripts.Render("~/bundles/webpostpartial")
+
+

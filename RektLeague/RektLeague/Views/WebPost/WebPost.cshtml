@@ -1,0 +1,48 @@
+﻿@{
+    //ViewBag.Title = Model.Title;
+    var absUrl = Context.Request.Url;
+    var id = ViewBag.Id;
+
+}
+
+<div class="container">
+    <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
+        <div class="row">
+            @Html.Partial("WebPostPartial")
+        </div>
+        <div class="row">
+            <div class="well well">
+                <div class="well well-sm" style="background-color:white;">
+                    <div class="fb-comments" data-href="@absUrl" data-numposts="5"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/bundles/webpost")
+<script>
+    (function(){
+        var wb = new WebPost();
+        ko.applyBindings(wb);
+        $.ajax({
+            url: "/WebPost/WebPostJson",
+            type: "get",
+            data: {
+                webPostNumber: @id,
+            },
+            dataType: "json",
+            success: function (result) {
+                wb.buildWebPost(result[0]);
+            }
+        });
+    })();
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+</script>

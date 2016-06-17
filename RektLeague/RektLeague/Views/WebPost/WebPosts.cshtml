@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    int category = -1;
+    string author = "";
+    if (@ViewBag.Category != null){
+        category = @ViewBag.Category;
+    }
+    if (@ViewBag.Author != null){
+        author = @ViewBag.Author;
+    }
+}
+<script type="text/javascript">
+
+    var category = @category, 
+        author='@author',
+        exhibit = @ViewBag.Exhibit;
+</script>
+<div class="container-fluid">
+    <div data-bind="foreach: webPosts">
+        @Html.Partial("WebPostPartial")
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/webposts")
+
+
+
+
+
+
+
+
+
+
+

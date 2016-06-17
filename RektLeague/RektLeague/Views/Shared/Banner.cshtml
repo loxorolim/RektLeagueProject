@@ -1,0 +1,26 @@
+@*@inject AspNetIdentity.Services.UserProfile UserProfile*@
+
+<div class="bg-dark text-center" style="position:absolute; right:0; top:0; height:250px;">
+    <ul class="nav">
+        @if (User.Identity.IsAuthenticated)
+        {
+            //var imgByteArray = await UserProfile.Image(User.Identity.Name);
+            var imgSrc = "~/Content/Images/notloggeduser.png";
+            //if (imgByteArray != null)
+            //{
+            //    var base64 = Convert.ToBase64String(imgByteArray);
+            //    imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            //}
+            <li><div class="username_style" resize>@User.Identity.Name</div></li>
+            <li><img src="@imgSrc" alt="headshot" class="headshot" /></li>
+            <li><a asp-controller="Auth" asp-action="Logout" class="fa fa-sign-out"> Logout</a></li>
+            <li><a asp-controller="App" asp-action="UserSettings" class="fa fa-cog"> Settings</a></li>
+        }
+        else
+        {
+            <li><img src="~/Content/Images/notloggeduser.png" alt="headshot" class="headshot" /></li>
+            <li><a asp-controller="Auth" asp-action="Login" class="fa fa-sign-in"> Login</a></li>
+            <li><a asp-controller="Auth" asp-action="SignUp" class="fa fa-user-plus"> Sign up</a></li>
+        }
+    </ul>
+</div>

@@ -1,0 +1,71 @@
+@using RektLeague.Models
+@model WebPostViewModel
+@{
+    ViewBag.Title = "Criar Post";
+}
+
+<div class="container-fluid">
+    <form id="writePostForm" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-1 col-xs-4 col-xs-offset-0 well well">
+
+                <fieldset>
+                    <legend>Criar Post</legend>
+                    <div class="form-group">
+                        <label> Title </label>
+                        @*<input id="postTitle" name="Title" class="form-control" />*@
+                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Title, String.Empty, new { @class = "text-warning" })
+                        @*<span asp-validation-for="Title" class="text-warning"></span>*@
+                    </div>
+                    <div class="form-group">
+                        <label> Category </label>
+                        <select class="form-control" name="Category" id="select">
+                            @for (var i = 0; i < ViewBag.CategoryNames.Length; i++)
+                            {
+                                <option value="@i">@ViewBag.CategoryNames[i]</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create Post!" class="btn btn-success" />
+                        <a id="previewButton" value="Preview Post" class="btn btn-success"></a>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-md-6 col-md-offset-0 col-xs-6 col-xs-offset-0">
+                <div class="well well">
+                    <div class="text-center" style="-ms-word-break: break-all; word-break: break-all;">
+                        <h4>Elements</h4>
+                        <table id="elements-table" class="table table-striped">
+                            <tbody data-bind="foreach: elements">
+                                <tr>
+                                    <td>
+                                        <input data-bind="value: elementType, enable: elementType() != 'Image/Gif' || uploadable() == true" class="form-control hidden" name="DisplayOrder" />
+                                        <textarea style="resize:vertical;" data-bind="visible: elementType() == 'Text', enable: elementType() == 'Text'" name="Texts" class="form-control"></textarea>
+                                        <input data-bind="visible: elementType() == 'YoutubeURL', enable: elementType() == 'YoutubeURL'" name="YoutubeURLs" class="form-control" />
+                                        <input data-bind="visible: elementType() == 'Image/Gif', enable: elementType() == 'Image/Gif', event: {change: function(){setUploadable();}}" class="form-control" type="file" name="Images" accept="image/*">
+                                    </td>
+                                    <td style="width:150px;">
+                                        <select class="form-control pull-right" data-bind="options: $root.availableTypes, value: elementType"></select>
+                                    </td>
+                                    <td style="width:30px;">
+                                        <label data-bind="click: $root.removeElement" class="btn btn-primary fa fa-times"></label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a data-bind="click: addElement" href="#" class="btn btn-primary">New Element</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <div class="row">
+
+    </div>
+</div>
+@Scripts.Render("~/bundles/writepost")
+
+
