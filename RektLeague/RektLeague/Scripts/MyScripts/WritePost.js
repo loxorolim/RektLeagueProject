@@ -31,7 +31,7 @@
         self.removeElement = function (element) { self.elements.remove(element) }
 
     }
-    ko.applyBindings(new ElementsViewModel());
+    ko.applyBindings(new ElementsViewModel(),$("#writePost")[0]);
 
 
     function readURL(input) {
@@ -46,5 +46,7 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+
 
 })();

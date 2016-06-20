@@ -43,7 +43,19 @@ namespace RektLeague.Controllers
             ViewBag.CategoryNames = Config.categoryNames;
             return View();
         }
+        [HttpPost]
+        public string Preview(WebPostViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                WebPost wp = _webPostBr.BuildWebPostFromViewModel(model);
+                List<WebPost> wl = new List<WebPost>();
+                wl.Add(wp);
+                return _webPostBr.GetWebPostListJson(wl);
+            }
+            return "";
 
+        }
         [HttpPost]
         public ActionResult WritePost(WebPostViewModel model)
         {
