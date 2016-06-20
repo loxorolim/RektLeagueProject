@@ -219,6 +219,10 @@
     <Content Include="App_Data\RektLeague.Repositories.WebPostContext_log.ldf">
       <DependentUpon>RektLeague.Repositories.WebPostContext.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\Images\facebook.png" />
+    <Content Include="Content\Images\facebookHover.png" />
+    <Content Include="Content\Images\google.png" />
+    <Content Include="Content\Images\googleHover.png" />
     <Content Include="Content\Images\heresdoge.jpg" />
     <Content Include="Content\Images\heresdoge100x100.png" />
     <Content Include="Content\Images\notloggeduser.png" />
@@ -263,6 +267,8 @@
     <Content Include="Content\bootswatch\yeti\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Images\twitter.png" />
+    <Content Include="Content\Images\twitterHover.png" />
     <Content Include="Content\WebPostPartial.css" />
     <Content Include="Content\WebPosts.css" />
     <Content Include="favicon.ico" />

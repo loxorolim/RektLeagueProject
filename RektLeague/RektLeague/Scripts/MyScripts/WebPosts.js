@@ -1,9 +1,4 @@
 (function () {
-    function reloadSocialButtons() {
-        twttr.widgets.load();
-        FB.XFBML.parse();
-        gapi.plusone.go();
-    }
     var wpvm = new function WebPostsViewModel() {
         var self = this;
         self.webpostNumber = 0;
@@ -30,20 +25,10 @@
                         self.addWebPost(result[i]);
                     }
                     self.webpostNumber += result.length;
-                    reloadSocialButtons();
                 }
             });
         }
-        //window.onscroll = function (ev) {
-        //    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        //        self.fetchWebPosts();
-        //        alert("wow");
-        //    }
-        //};
-        //self.fetchWebPosts();
-
     }
-
     ko.applyBindings(wpvm);
     wpvm.fetchWebPosts();
    

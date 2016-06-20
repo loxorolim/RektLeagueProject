@@ -41,6 +41,7 @@ function WebPost() {
             self.day(myDate.getDate());
             self.month(monthNames[myDate.getMonth()]);
             self.year(myDate.getFullYear());
+            self.elements.removeAll();
             for (var i = 0; i < json.elements.length; i++) {
                 self.addElement(json.elements[i].elementType, json.elements[i].postString, json.elements[i].postBytes);
             }

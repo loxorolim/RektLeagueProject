@@ -67,11 +67,27 @@
         <div class="webpost_separator"></div>
     </div>
     <div class="row bg-dark">
-        <div style="display: table; width: 100%; padding:10px;">
-            <div style="display:table-cell; text-align:center; vertical-align:middle">
-                <div class="fb-like" data-bind="attr:{'data-href': pageUrl}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
-            </div>
-            <div style="display:table-cell; text-align:center; vertical-align:middle">
+        <div id="share-buttons">
+            <div style="display: table; width: 100%; padding:10px;">
+
+                @*<div class="fb-like" data-bind="attr:{'data-href': pageUrl}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>*@
+
+                <div class="share-button-cell">
+                    <!-- Facebook -->
+                    <a data-bind="attr:{'href': 'http://www.facebook.com/sharer.php?u='+ pageUrl(), 'target': '_blank'}"  style="text-decoration: none;">
+                        <img src="~/Content/Images/facebook.png" onmouseover="this.src='/Content/Images/facebookHover.png';" onmouseout="this.src ='/Content/Images/facebook.png';" alt="Facebook" />
+                    </a>
+                    <a data-bind="attr:{'href': 'https://twitter.com/share?url='+ pageUrl() + '&amp;text='+title()+'&amp;hashtags=RektLeague', 'target': '_blank'}" style="text-decoration: none;">
+                        <img src="~/Content/Images/twitter.png" onmouseover="this.src='/Content/Images/twitterHover.png';" onmouseout="this.src ='/Content/Images/twitter.png';" alt="Twitter" />
+                    </a>
+                    <a data-bind="attr:{'href': 'https://plus.google.com/share?url='+ pageUrl(), 'target': '_blank'}" style="text-decoration: none;">
+                        <img src="~/Content/Images/google.png" onmouseover="this.src='/Content/Images/googleHover.png';" onmouseout="this.src ='/Content/Images/google.png';" alt="Google" />
+                    </a>
+                </div>
+
+
+
+                    @*<div style="display:table-cell; text-align:center; vertical-align:middle">
                 <a href="https://twitter.com/share" class="twitter-share-button" data-bind="attr:{'data-url': pageUrl(), 'data-text': title()}" data-via="RektLeague">Tweet</a>
             </div>
             <div style="display:table-cell; text-align:center; vertical-align:middle">
@@ -79,7 +95,8 @@
                 <script type="text/javascript">
 
                 </script>
-            </div>
+            </div>*@
+                </div>
         </div>
         <div class="webpost_separator"></div>
     </div>
