@@ -17,7 +17,7 @@ function WebPost() {
     self.title = ko.observable();
     self.category = ko.observable();
     self.categoryName = ko.observable();
-    self.id = ko.observable();
+    self.id = ko.observable(0);
     self.pageUrl = ko.computed(function () {
         return getRootUrl() + "WebPost/WebPost/" + self.id();
     }, this);
@@ -26,6 +26,7 @@ function WebPost() {
     self.month = ko.observable();
     self.year = ko.observable();
     self.author = ko.observable();
+    self.authorImage = ko.observable("/Content/Images/notloggeduser.png");
     self.elements = ko.observableArray([]);
     self.addElement = function (elementType, text, imgBytes) {
         self.elements.push(new Element(elementType, text, imgBytes));
@@ -37,6 +38,8 @@ function WebPost() {
             self.category(json.category);
             self.categoryName(json.categoryName)
             self.author(json.author);
+            if(json.authorImage != "")
+                self.authorImage(json.authorImage);
             var myDate = new Date(json.publicationDate);
             self.day(myDate.getDate());
             self.month(monthNames[myDate.getMonth()]);

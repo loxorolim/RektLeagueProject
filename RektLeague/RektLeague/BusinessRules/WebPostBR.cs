@@ -22,7 +22,7 @@ namespace RektLeague.BusinessRules
             WebPost newWebPost = BuildWebPostFromViewModel(model);
             try
             {
-                using (var context = new WebPostContext())
+                using (var context = new ApplicationDbContext())
                 {
                     context.WebPosts.Add(newWebPost);
                     context.Elements.AddRange(newWebPost.Elements);
@@ -55,7 +55,7 @@ namespace RektLeague.BusinessRules
                         model.Texts.RemoveAt(0);
                         break;
                     case "Image/Gif":
-                        newWebPost.Elements.Add(new Element() { PostBytes = getFormFileBytes(model.Images[0]), ElementType = Element.Type.Image });
+                        newWebPost.Elements.Add(new Element() { PostBytes = Config.getFormFileBytes(model.Images[0]), ElementType = Element.Type.Image });
                         model.Images.RemoveAt(0);
                         break;
                     case "YoutubeURL":
@@ -72,7 +72,7 @@ namespace RektLeague.BusinessRules
         {
             try
             {
-                using (var context = new WebPostContext())
+                using (var context = new ApplicationDbContext())
                 {
                     WebPost wb = context.WebPosts.First(i => i.Id == id);
                     List<WebPost> wpl = new List<WebPost>();
@@ -89,7 +89,7 @@ namespace RektLeague.BusinessRules
         {
             try
             {
-                using (var context = new WebPostContext())
+                using (var context = new ApplicationDbContext())
                 {
                     IEnumerable<WebPost> wpl = context.WebPosts.OrderByDescending(t => t.PublicationDate).Skip(initPos).Take(Config.FetchSize).ToList();
                     return GetWebPostListJson(wpl);
@@ -104,7 +104,7 @@ namespace RektLeague.BusinessRules
         {
             try
             {
-                using (var context = new WebPostContext())
+                using (var context = new ApplicationDbContext())
                 {
                     IEnumerable<WebPost> wpl = context.WebPosts.Where(t => t.Category == category).OrderByDescending(t => t.PublicationDate).Skip(initPos).Take(Config.FetchSize).ToList();
                     return GetWebPostListJson(wpl);
@@ -119,7 +119,7 @@ namespace RektLeague.BusinessRules
         {
             try
             {
-                using (var context = new WebPostContext())
+                using (var context = new ApplicationDbContext())
                 {
                     IEnumerable<WebPost> wpl = context.WebPosts.Where(t => t.Author == author).OrderByDescending(t => t.PublicationDate).Skip(initPos).Take(Config.FetchSize).ToList();
                     return GetWebPostListJson(wpl);
@@ -137,27 +137,11 @@ namespace RektLeague.BusinessRules
 
             return true;
         }
-        public static byte[] getFormFileBytes(HttpPostedFileBase file)
-        {
-            byte[] data;
-            using (Stream inputStream = file.InputStream)
-            {
-                MemoryStream memoryStream = inputStream as MemoryStream;
-                if (memoryStream == null)
-                {
-                    memoryStream = new MemoryStream();
-                    inputStream.CopyTo(memoryStream);
-                }
-                data = memoryStream.ToArray();
-            }
-            return data;
-        }
-
         public void RemoveWebPostById(int id)
         {
             try
             {
-                using (var context = new WebPostContext())
+                using (var context = new ApplicationDbContext())
                 {
                     WebPost wp = new WebPost() { Id = id };
                     context.WebPosts.Attach(wp);
@@ -174,7 +158,7 @@ namespace RektLeague.BusinessRules
         {
             try
             {
-                using (var context = new WebPostContext())
+                using (var context = new ApplicationDbContext())
                 {
                     return context.WebPosts.OrderBy(t => t.PublicationDate).ToList();
                 }
@@ -184,7 +168,7 @@ namespace RektLeague.BusinessRules
                 return null;
             }
         }
-        public bool SaveAll(WebPostContext context)
+        public bool SaveAll(ApplicationDbContext context)
         {
             return context.SaveChanges() > 0;
         }
@@ -192,7 +176,7 @@ namespace RektLeague.BusinessRules
         {
             try
             {
-                using (var context = new WebPostContext())
+                using (var context = new ApplicationDbContext())
                 {
                     IEnumerable<WebPost> wpl = context.WebPosts.OrderByDescending(t => t.PublicationDate).Skip(startingPoint).Take(10).ToList(); //MUDAR ESSE 10 DEPOIS
                     return wpl;
@@ -208,7 +192,7 @@ namespace RektLeague.BusinessRules
         {
             try
             {
-                using (var context = new WebPostContext())
+                using (var context = new ApplicationDbContext())
                 {
                     WebPost wb = context.WebPosts.First(i => i.Id == id);
                     return wb;
@@ -235,6 +219,8 @@ namespace RektLeague.BusinessRules
             {
                 var cat = (int) wb["category"];
                 wb["categoryName"] = Config.categoryNames[cat];
+                var authorName = (string)wb["author"];
+                wb["authorImage"] = IdentityManagerBR.GetUserByteArrayBase64String(authorName);
                 
             }
             return WebPosts.ToString();

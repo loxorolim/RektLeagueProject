@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using RektLeague.Models;
+using System.IO;
+using RektLeague.BusinessRules;
 
 namespace RektLeague.Controllers
 {
@@ -15,6 +17,7 @@ namespace RektLeague.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IdentityManagerBR _identityManagerBr = new IdentityManagerBR();
 
         public ManageController()
         {
@@ -330,8 +333,23 @@ namespace RektLeague.Controllers
 
             base.Dispose(disposing);
         }
+        [Authorize]
+        [HttpPost]
+        public ActionResult UserSettings(UserSettingsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                _identityManagerBr.ModifyUser(model,User.Identity.Name);
+            }
+            return View();
+        }
+        [Authorize]
+        public ActionResult UserSettings()
+        {
+            return View();
+        }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 

@@ -10,7 +10,8 @@ namespace RektLeague
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            new WebPostContextSeedData();
+            //WebPostContextSeedData seed = new WebPostContextSeedData();
+            //seed.SeedData();
             //await seeder.EnsureSeedDataAsync();
         }
     }

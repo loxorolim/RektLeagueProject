@@ -18,7 +18,7 @@
             </div>
             @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
             {
-                <a class="webpost_remove btn btn-danger text-center" asp-controller="App" asp-action="RemovePost" data-bind="attr:{'asp-route-id': id}">X</a>
+                <a class="webpost_remove btn btn-danger text-center"  data-bind="visible: id()!=0, attr:{'href': '/WebPost/Remove/'+id()}">X</a>
             }
 
         </div>
@@ -61,7 +61,7 @@
                 </h3>
             </div>
             <div style="display:table-cell; width:10%; text-align:left; vertical-align:middle">
-                <img class="img-circle" src="~/Content/Images/heresdoge.jpg" style="width:100%;">
+                <img class="img-circle" data-bind="attr:{'src': authorImage()}" style="width:100%;">
             </div>
         </div>
         <div class="webpost_separator"></div>

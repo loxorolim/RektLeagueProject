@@ -1,4 +1,6 @@
-﻿using RektLeague.Models;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using RektLeague.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,22 @@ namespace RektLeague.Repositories
 {
     public class WebPostContextSeedData
     {
-        public WebPostContextSeedData()
+        public async void SeedData()
         {
-            using (var db = new WebPostContext())
+            using (var db = new ApplicationDbContext())
             {
+                if (!db.Roles.Any(r => r.Name == "admin"))
+                {
+                    var roleStore = new RoleStore<IdentityRole>(db);
+                    await roleStore.CreateAsync(new IdentityRole { Name = "admin"});
+                }
+                if (!db.Users.Any())
+                {
+                    var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                    var admin = new ApplicationUser { UserName = "Admin", Email = "loxorolim@gmail.com" };
+                    userManager.Create(admin, "V3ry!p4ssw0rd");
+                    userManager.AddToRole(admin.Id, "admin");
+                }
                 if (!db.WebPosts.Any())
                 {
                     byte[] image = System.IO.File.ReadAllBytes("C:\\Users\\Guilherme\\Source\\Repos\\RektLeague4.6.1\\RektLeague\\RektLeague\\Content\\Images\\heresdoge.jpg");

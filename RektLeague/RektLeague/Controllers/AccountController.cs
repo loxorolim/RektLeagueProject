@@ -55,9 +55,8 @@ namespace RektLeague.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login()
         {
-            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
@@ -66,7 +65,7 @@ namespace RektLeague.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -75,15 +74,15 @@ namespace RektLeague.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("WebPosts", "WebPost");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+               // case SignInStatus.RequiresVerification:
+               //     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -151,12 +150,12 @@ namespace RektLeague.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Login, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -166,6 +165,9 @@ namespace RektLeague.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
+
+                
+               
             }
 
             // If we got this far, something failed, redisplay form
@@ -387,7 +389,7 @@ namespace RektLeague.Controllers
 
         //
         // POST: /Account/LogOff
-        [HttpPost]
+        //[HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {

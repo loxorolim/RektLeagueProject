@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace RektLeague.Models
 {
@@ -48,22 +49,44 @@ namespace RektLeague.Models
 
     public class LoginViewModel
     {
+
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Login")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Lembrar de mim?")]
         public bool RememberMe { get; set; }
+    }
+    public class UserSettingsViewModel
+    {
+        [Display(Name = "Novo Login")]
+        public string UserName { get; set; }
+
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Novo Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirmar Password Antigo")]
+        public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Nova Imagem")]
+        public HttpPostedFileBase Image { get; set; }
     }
 
     public class RegisterViewModel
     {
+        [Required]
+        [StringLength(20, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
+        [Display(Name = "Login")]
+        public string Login { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

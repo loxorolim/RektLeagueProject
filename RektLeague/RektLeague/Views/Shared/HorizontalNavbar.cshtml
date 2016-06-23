@@ -13,13 +13,13 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a asp-controller="App" asp-action="Index"> Home</a></li>
+                    <li><a href="/"> Home</a></li>
                     <li><a asp-controller="App" asp-action="About"> About</a></li>
                     <li><a asp-controller="App" asp-action="Contact"> Contact</a></li>
-                    @*@if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
-                    {*@
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                    {
                         <li><a href="/WebPost/WritePost"> Write post</a></li>
-                    @*}*@
+                    }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>

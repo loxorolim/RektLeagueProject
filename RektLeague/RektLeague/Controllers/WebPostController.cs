@@ -38,11 +38,13 @@ namespace RektLeague.Controllers
             ViewBag.Id = id;
             return View();
         }
+        [Authorize(Roles = "admin")]
         public ActionResult WritePost()
         {
             ViewBag.CategoryNames = Config.categoryNames;
             return View();
         }
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public string Preview(WebPostViewModel model)
         {
@@ -56,6 +58,7 @@ namespace RektLeague.Controllers
             return "";
 
         }
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public ActionResult WritePost(WebPostViewModel model)
         {
@@ -69,6 +72,12 @@ namespace RektLeague.Controllers
             }
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return Json("Failed");
+        }
+        [Authorize(Roles = "admin")]
+        public ActionResult Remove(int id)
+        {
+            _webPostBr.RemoveWebPostById(id);
+            return RedirectToAction("WebPosts", "WebPost");
         }
         public string WebPostJson(int webpostNumber)
         {

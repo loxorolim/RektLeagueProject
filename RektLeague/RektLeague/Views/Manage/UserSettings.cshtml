@@ -1,0 +1,67 @@
+﻿@using RektLeague.ModelExtensions
+@using RektLeague.Models
+@using Microsoft.AspNet.Identity;
+@model UserSettingsViewModel
+@{
+    ViewBag.Title = "Configurações";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
+            <form method="post" class="well well" enctype="multipart/form-data">
+                <fieldset>
+                    <legend>Configurações</legend>
+                    <div class="col-md-6 col-xs-6">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Alterar" class="btn btn-success" />
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                        <div class="form-group text-center">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                var imgSrc = User.Identity.GetImage();
+                                if (imgSrc == String.Empty)
+                                {
+                                    imgSrc = "/Content/Images/notloggeduser.png";
+                                }
+                                <img id="imagePreview" src="@imgSrc" alt="Imagem" class="headshot" />
+                            }
+                        </div>
+                        <div class="form-group-sm" style="margin-bottom:15px;">
+                            <label class="btn btn-primary btn-sm fa fa-upload" style="height:30px;" for="my-file-selector">
+                                <input id="my-file-selector" name="Image" type="file" multiple style="display:none;">
+                            </label>
+                            <div class="col-xs-7 col-md-9 col-sm-9">
+                                <input id="input-filename" class="form-control" type="text" readonly />
+                            </div>
+
+                        </div>
+                        @*<div class="form-group text-center">
+                            <button class="btn btn-success btn-sm" type="button">Alterar Imagem</button>
+                        </div>*@
+                    </div>
+                </fieldset>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+    
