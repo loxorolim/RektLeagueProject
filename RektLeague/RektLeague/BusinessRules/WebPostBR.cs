@@ -130,6 +130,26 @@ namespace RektLeague.BusinessRules
                 return null;
             }
         }
+        public string GetWebPostListJsonBySearchParameter(int initPos, string search)
+        {
+            try
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    if (!String.IsNullOrEmpty(search))
+                    {
+                        IEnumerable<WebPost> wpl = context.WebPosts.Where(t => t.Title.Contains(search)).OrderByDescending(t => t.PublicationDate).Skip(initPos).Take(Config.FetchSize).ToList();
+                        return GetWebPostListJson(wpl);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return null;
+        }
 
         private bool ValidateWebPost(WebPost webpost)
         {
@@ -220,6 +240,7 @@ namespace RektLeague.BusinessRules
                 var cat = (int) wb["category"];
                 wb["categoryName"] = Config.categoryNames[cat];
                 var authorName = (string)wb["author"];
+                wb["authorName"] = IdentityManagerBR.GetUserDisplayName(authorName);
                 wb["authorImage"] = IdentityManagerBR.GetUserByteArrayBase64String(authorName);
                 
             }

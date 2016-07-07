@@ -16,7 +16,7 @@
                     <a data-bind="attr:{'href': pageUrl}, text: title" class="webpost_title_text"></a>
                 </h2>
             </div>
-            @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
             {
                 <a class="webpost_remove btn btn-danger text-center"  data-bind="visible: id()!=0, attr:{'href': '/WebPost/Remove/'+id()}">X</a>
             }
@@ -57,7 +57,7 @@
             <div style="display:table-cell; width:50%; text-align:center; vertical-align:middle">
                 <h3>
                     <span>Postado por </span>
-                    <a class="webpost_text" data-bind="attr:{'href': '/WebPost/Author/'+author()}, text: author() "></a>
+                    <a class="webpost_text" data-bind="attr:{'href': '/WebPost/Author/'+author()}, text: authorName() "></a>
                 </h3>
             </div>
             <div style="display:table-cell; width:10%; text-align:left; vertical-align:middle">

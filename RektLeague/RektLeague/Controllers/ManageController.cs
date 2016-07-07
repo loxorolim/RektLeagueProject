@@ -9,6 +9,7 @@ using Microsoft.Owin.Security;
 using RektLeague.Models;
 using System.IO;
 using RektLeague.BusinessRules;
+using System.Collections.Generic;
 
 namespace RektLeague.Controllers
 {
@@ -333,6 +334,28 @@ namespace RektLeague.Controllers
 
             base.Dispose(disposing);
         }
+        [Authorize(Roles = "SuperAdmin")]
+        public ActionResult ManageUsers()
+        {
+            ViewBag.TotalUsers = _identityManagerBr.GetTotalUsers();
+            return View();
+        }
+        [Authorize(Roles = "SuperAdmin")]
+        public string UsersJson(FetchUserViewModel fuvm)
+        {
+            return _identityManagerBr.GetUsersListJson(fuvm.CurrentPage, fuvm.NumberToFetch, fuvm.Order, fuvm.Orientation, fuvm.SearchParameter, fuvm.AdminFilter);
+        }
+        [Authorize(Roles = "SuperAdmin")]
+        public void ChangeUserRole(string username, string newRole)
+        {
+            _identityManagerBr.ChangeUserRole(username,newRole);
+        }
+        [Authorize(Roles = "SuperAdmin")]
+        public void DeleteUser(string username)
+        {
+            _identityManagerBr.DeleteUser(username);
+        }
+
         [Authorize]
         [HttpPost]
         public ActionResult UserSettings(UserSettingsViewModel model)

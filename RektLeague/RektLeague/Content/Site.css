@@ -6,9 +6,6 @@
     background-repeat: no-repeat;
     background-position: 50% 50%;
 }
-
-
-
 .headshot {
     width: 100px;
     height: 100px;
@@ -17,12 +14,17 @@
 }
 .username_style {
     font-family: 'Helvetica Neue LT Pro';
-    font-size:x-large;
+    font-size:large;
+    word-wrap:break-word;
+    max-height:50px;
 }
 .bg-dark {
     background: #343434;
 }
-
+.navbar {
+    font-weight:300;
+    font-size:medium;
+}
 #sidebar {
     background: #222;
     color: #eee;

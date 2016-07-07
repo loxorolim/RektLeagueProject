@@ -17,6 +17,7 @@
                     webpostNumber: self.webpostNumber,
                     category: category,
                     author: author,
+                    search: search,
                     exhibit: exhibit
                 },
                 dataType: "json",
@@ -25,20 +26,32 @@
                         self.addWebPost(result[i]);
                     }
                     self.webpostNumber += result.length;
+                    canfetch = true;
+                },
+                error: function (error) {
+                    console.log(error);
+                    canfetch = true;
                 }
             });
         }
     }
     ko.applyBindings(wpvm);
     wpvm.fetchWebPosts();
-   
-    window.onscroll = function () {
-        //console.log((window.innerHeight + window.scrollY) + "/" + document.body.offsetHeight);
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-
-            wpvm.fetchWebPosts();
+    var canfetch = true;
+    window.addEventListener("scroll", function () {
+        var body = document.body,
+        html = document.documentElement;
+        var height = Math.max(body.scrollHeight, body.offsetHeight,
+                       html.clientHeight, html.scrollHeight, html.offsetHeight);
+        //console.log(window.innerHeight +"/"+ window.scrollY + "/" + document.body.offsetHeight +"/" + height);
+        if ((window.innerHeight + window.scrollY) >= 0.8 * height) {
+            if (canfetch){
+                wpvm.fetchWebPosts();
+                canfetch = false;
+            }
+                
         }
-    };
+    });
     
 })();
 

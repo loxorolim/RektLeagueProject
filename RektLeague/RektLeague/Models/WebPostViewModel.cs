@@ -10,7 +10,6 @@ namespace RektLeague.Models
     {
         public int Id { get; set; }
         [Required]
-        [StringLength(20, MinimumLength = 5)]
         public string Title { get; set; }
         public DateTime PublicationDate { get; set; } = DateTime.UtcNow;
         // [StringLength(255, MinimumLength = 5)]

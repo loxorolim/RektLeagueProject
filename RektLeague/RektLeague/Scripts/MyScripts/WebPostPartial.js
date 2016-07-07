@@ -26,6 +26,7 @@ function WebPost() {
     self.month = ko.observable();
     self.year = ko.observable();
     self.author = ko.observable();
+    self.authorName = ko.observable();
     self.authorImage = ko.observable("/Content/Images/notloggeduser.png");
     self.elements = ko.observableArray([]);
     self.addElement = function (elementType, text, imgBytes) {
@@ -38,6 +39,7 @@ function WebPost() {
             self.category(json.category);
             self.categoryName(json.categoryName)
             self.author(json.author);
+            self.authorName(json.authorName);
             if(json.authorImage != "")
                 self.authorImage(json.authorImage);
             var myDate = new Date(json.publicationDate);

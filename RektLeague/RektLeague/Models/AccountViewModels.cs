@@ -64,17 +64,18 @@ namespace RektLeague.Models
     }
     public class UserSettingsViewModel
     {
-        [Display(Name = "Novo Login")]
-        public string UserName { get; set; }
+        [StringLength(20, ErrorMessage = "{0} deve ter no mínimo {2}, e no máximo {1}, caracteres.", MinimumLength = 4)]
+        [Display(Name = "Nome de exibição")]
+        public string DisplayName { get; set; }
 
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Novo Password")]
-        public string Password { get; set; }
+        //[StringLength(100, ErrorMessage = "{0} deve ter pelo menos {2} caracteres.", MinimumLength = 6)]
+        //[DataType(DataType.Password)]
+        //[Display(Name = "Novo Password")]
+        //public string Password { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirmar Password Antigo")]
-        public string ConfirmPassword { get; set; }
+        //[DataType(DataType.Password)]
+        //[Display(Name = "Confirmar Password Antigo")]
+        //public string ConfirmPassword { get; set; }
 
         [Display(Name = "Nova Imagem")]
         public HttpPostedFileBase Image { get; set; }
@@ -83,7 +84,7 @@ namespace RektLeague.Models
     public class RegisterViewModel
     {
         [Required]
-        [StringLength(20, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
+        [StringLength(15, ErrorMessage = "{0} deve ter no mínimo {2}, e no máximo {1}, caracteres.", MinimumLength = 4)]
         [Display(Name = "Login")]
         public string Login { get; set; }
 
@@ -93,14 +94,14 @@ namespace RektLeague.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} deve ter no mínimo {2}, e no máximo {1}, caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "Password e confirmação não conferem.")]
         public string ConfirmPassword { get; set; }
     }
 

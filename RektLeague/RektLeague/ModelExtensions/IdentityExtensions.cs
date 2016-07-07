@@ -15,5 +15,11 @@ namespace RektLeague.ModelExtensions
             // Test for null to avoid issues during local testing
             return (claim != null) ? claim.Value : string.Empty;
         }
+        public static string GetDisplayName(this IIdentity identity)
+        {
+            var claim = ((ClaimsIdentity)identity).FindFirst("DisplayName");
+            // Test for null to avoid issues during local testing
+            return (claim != null) ? claim.Value : string.Empty;
+        }
     }
 }

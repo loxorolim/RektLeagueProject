@@ -38,13 +38,19 @@ namespace RektLeague.Controllers
             ViewBag.Id = id;
             return View();
         }
-        [Authorize(Roles = "admin")]
+        public ActionResult Search(string search)
+        {
+            ViewBag.Search = search;
+            ViewBag.Exhibit = (int)Config.ExhibitType.Search;
+            return View("WebPosts");
+        }
+        [Authorize(Roles = "Admin")]
         public ActionResult WritePost()
         {
             ViewBag.CategoryNames = Config.categoryNames;
             return View();
         }
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public string Preview(WebPostViewModel model)
         {
@@ -58,7 +64,7 @@ namespace RektLeague.Controllers
             return "";
 
         }
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult WritePost(WebPostViewModel model)
         {
@@ -73,7 +79,7 @@ namespace RektLeague.Controllers
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return Json("Failed");
         }
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Remove(int id)
         {
             _webPostBr.RemoveWebPostById(id);
@@ -91,7 +97,7 @@ namespace RektLeague.Controllers
             }
             return null;
         }
-        public string WebPostsJson(int webpostNumber, int category, string author, int exhibit)
+        public string WebPostsJson(int webpostNumber, int category, string author, string search, int exhibit)
         {
             try
             {
@@ -103,6 +109,8 @@ namespace RektLeague.Controllers
                         return _webPostBr.GetWebPostListJsonByCategory(webpostNumber, category);
                     case (int)Config.ExhibitType.Author:
                         return _webPostBr.GetWebPostListJsonByAuthor(webpostNumber, author);
+                    case (int)Config.ExhibitType.Search:
+                        return _webPostBr.GetWebPostListJsonBySearchParameter(webpostNumber, search);
                     default:
                         break;
 

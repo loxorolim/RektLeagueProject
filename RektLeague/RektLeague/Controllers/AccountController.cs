@@ -150,7 +150,7 @@ namespace RektLeague.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Login, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Login, DisplayName = model.Login, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

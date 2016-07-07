@@ -24,6 +24,7 @@ namespace RektLeague.App_Start
             All,
             Category,
             Author,
+            Search,
         }
         //public enum categories { Birdadas, Memes, TopJogadas};
 
@@ -45,7 +46,7 @@ namespace RektLeague.App_Start
         public static byte[] getFormFileBytes(HttpPostedFileBase file)
         {
             byte[] data = null;
-            if(file.InputStream != null)
+            if(file != null)
             {
                 using (Stream inputStream = file.InputStream)
                 {

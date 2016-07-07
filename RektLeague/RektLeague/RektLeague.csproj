@@ -212,6 +212,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelExtensions\IdentityExtensions.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\FetchUserViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\WebPost.cs" />
@@ -322,7 +323,9 @@
     <Content Include="Scripts\knockout-3.4.0.debug.js" />
     <Content Include="Scripts\knockout-3.4.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\MyScripts\ManageUsers.js" />
     <Content Include="Scripts\MyScripts\SocialCalls.js" />
+    <Content Include="Scripts\MyScripts\UserSettings.js" />
     <Content Include="Scripts\MyScripts\WebPost.js" />
     <Content Include="Scripts\MyScripts\WebPostPartial.js" />
     <Content Include="Scripts\MyScripts\WebPosts.js" />
@@ -375,6 +378,7 @@
     <Content Include="Views\WebPost\WebPost.cshtml" />
     <Content Include="Views\WebPost\WebPostPartial.cshtml" />
     <Content Include="Views\Manage\UserSettings.cshtml" />
+    <Content Include="Views\Manage\ManageUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RektLeague.BusinessRules\RektLeague.BusinessRules.csproj">

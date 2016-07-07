@@ -1,6 +1,7 @@
 @*@inject AspNetIdentity.Services.UserProfile UserProfile*@
 @using RektLeague.BusinessRules
-<div class="bg-dark text-center" style="position:absolute; right:0; top:0; height:250px; width:150px;">
+@using RektLeague.ModelExtensions
+<div class="bg-dark text-center" style="position:absolute; right:0; top:0; height:250px;">
     <form id="logoutForm" action="/Account/LogOff" method="post">
         @Html.AntiForgeryToken()
         <ul class="nav">
@@ -11,17 +12,38 @@
                 {
                     imgSrc = "/Content/Images/notloggeduser.png";
                 }
-                <li><div class="username_style" resize>@User.Identity.Name</div></li>
-                <li><img src="@imgSrc" alt="headshot" class="headshot" /></li>
-                <li><a class="fa fa-sign-out" href="javascript:$('#logoutForm').submit()">Log off</a></li>
-                <li><a href="/Manage/UserSettings" class="fa fa-cog"> Settings</a></li>
+                <li><div id="displayname" class="username_style">@IdentityManagerBR.GetUserDisplayName(User.Identity.Name)</div></li>
+                <li>
+                    <div style="display: table;">
+                        <img style="display:table-cell;" src="@imgSrc" alt="headshot" class="headshot" />
+                        <ul class="nav" style="display:table-cell; text-align:left;">
+                            <li><a class="fa fa-sign-out" href="javascript:$('#logoutForm').submit()"> Sair</a></li>
+                            <li><a href="/Manage/UserSettings" class="fa fa-cog"> Config</a></li>
+                        </ul>
+                    </div>
+                </li>
+                if (User.IsInRole("SuperAdmin"))
+                {
+                    <li><span style="color:goldenrod">SuperAdmin</span></li>
+                    <li><a class="fa fa-plus" href="/WebPost/WritePost"> Criar post</a></li>
+                    <li><a class="fa fa-users" href="/Manage/ManageUsers"> Administrar usuários</a></li>
+                }
+                else if (User.IsInRole("Admin"))
+                {
+                    <li><span style="color:goldenrod">Admin</span></li>
+                    <li><a class="fa fa-plus" href="/WebPost/WritePost"> Criar post</a></li>
+                }
             }
             else
             {
                 <li><img src="~/Content/Images/notloggeduser.png" alt="headshot" class="headshot" /></li>
-                <li><a href="/Account/Login" class="fa fa-sign-in"> Login</a></li>
-                <li><a href="/Account/Register" class="fa fa-user-plus"> Sign up</a></li>
+                <li><a href="/Account/Login" class="fa fa-sign-in"> Entrar</a></li>
+                <li><a href="/Account/Register" class="fa fa-user-plus"> Registrar</a></li>
             }
         </ul>
+
     </form>
 </div>
+<script>
+    //$("#displayname").fitText(1.2);
+</script>

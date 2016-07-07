@@ -27,7 +27,8 @@ namespace RektLeague
                       "~/Scripts/MyScripts/SocialCalls.js",
                       "~/Scripts/jquery-{version}.js",
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/jquery.fittext.js")); 
 
             bundles.Add(new ScriptBundle("~/bundles/webposts").Include(
                       "~/Scripts/knockout-3.4.0.js",
@@ -41,11 +42,19 @@ namespace RektLeague
                       "~/Scripts/knockout-3.4.0.js",
                       "~/Scripts/MyScripts/WebPostPartial.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/manageusers").Include(
+                      "~/Scripts/knockout-3.4.0.js",
+                      "~/Scripts/MyScripts/ManageUsers.js"));
+
 
             bundles.Add(new ScriptBundle("~/bundles/writepost").Include(
                       "~/Scripts/knockout-3.4.0.js",
                       "~/Scripts/jquery.validate*",
                       "~/Scripts/MyScripts/WritePost.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/usersettings").Include(
+                      "~/Scripts/jquery.validate*",
+                      "~/Scripts/MyScripts/UserSettings.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootswatch/superhero/bootstrap.min.css",

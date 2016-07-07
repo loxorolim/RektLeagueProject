@@ -1,18 +1,23 @@
 ﻿@{
     ViewBag.Title = "Home Page";
     int category = -1;
-    string author = "";
+    string author = "",search="";
     if (@ViewBag.Category != null){
         category = @ViewBag.Category;
     }
     if (@ViewBag.Author != null){
         author = @ViewBag.Author;
     }
+    if (@ViewBag.Search != null)
+    {
+        search = @ViewBag.Search;
+    }
 }
 <script type="text/javascript">
 
     var category = @category, 
         author='@author',
+        search = '@search',
         exhibit = @ViewBag.Exhibit;
 </script>
 <div class="container-fluid">
